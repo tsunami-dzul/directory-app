@@ -9,9 +9,9 @@ const Header = () => {
       <div className='container-fluid'>
         <Link
           className='navbar-brand'
-          to=''
+          to='/'
         >
-          Navbar
+          Directory
         </Link>
 
         <button
@@ -51,9 +51,9 @@ const Header = () => {
             <li className='nav-item'>
               <Link
                 className='nav-link'
-                to='admin'
+                to='&weather'
               >
-                Admin
+                Weather system
               </Link>
             </li>
           </ul>
