@@ -1,8 +1,14 @@
+import { useEffect } from 'react';
+import { getPerson } from '../../services/person.service';
 import PageTitle from '../form/PageTitle';
 import Pagination from '../form/Pagination';
 import Search from '../form/Search';
 
 const Dashboard = () => {
+  useEffect(() => {
+    getPerson();
+  }, []);
+
   return (
     <>
       <PageTitle title='Dashboard' />

@@ -1,6 +1,13 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
+  const [currentTab, setCurrentTab] = useState('dashboard');
+
+  const handleOnclick = (activeTab) => {
+    setCurrentTab(activeTab);
+  };
+
   return (
     <nav
       className='navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark'
@@ -33,7 +40,8 @@ const Header = () => {
           <ul className='navbar-nav'>
             <li className='nav-item'>
               <Link
-                className='nav-link active'
+                onClick={() => handleOnclick('dashboard')}
+                className={`nav-link ${currentTab === 'dashboard' ? 'active' : ''}`}
                 aria-current='page'
                 to='/dashboard'
               >
@@ -42,7 +50,8 @@ const Header = () => {
             </li>
             <li className='nav-item'>
               <Link
-                className='nav-link'
+                onClick={() => handleOnclick('person')}
+                className={`nav-link ${currentTab === 'person' ? 'active' : ''}`}
                 to='person'
               >
                 Person
