@@ -27,16 +27,22 @@ const Person = () => {
                 <td>Esdras</td>
                 <td>Dzul</td>
                 <td>
-                  <Button className='btn btn-sm btn-link' text='Edit' />
+                  <Button
+                    className='btn btn-sm btn-link'
+                    text='Edit'
+                  />
                 </td>
                 <td>
-                  <Button className='btn btn-sm btn-link' text='Delete' />
+                  <Button
+                    className='btn btn-sm btn-link'
+                    text='Delete'
+                  />
                 </td>
               </tr>
             </tbody>
             <tfoot>
               <tr>
-                <td colspan={5}>
+                <td colSpan={5}>
                   <Pagination />
                 </td>
               </tr>
@@ -47,7 +53,12 @@ const Person = () => {
 
       <div className='row'>
         <div className='col-12'>
-          <Button className='btn btn-dark btn-sm' data-bs-toggle='modal' data-bs-target='#add-person' text={'Add new person'} />
+          <Button
+            className='btn btn-dark btn-sm'
+            data-bs-toggle='modal'
+            data-bs-target='#add-person'
+            text={'Add new person'}
+          />
         </div>
       </div>
 

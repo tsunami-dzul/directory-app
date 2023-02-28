@@ -1,18 +1,18 @@
 import { personActionTypes } from '../actions/actionTypes';
 
-const personReducer = (state = [], action) => {
+const personReducer = (state = {}, action) => {
   switch (action.type) {
     case personActionTypes.addPerson:
-      return [...state, action.payload.persons];
+      return {
+        ...action.payload,
+      };
     case personActionTypes.updatePerson:
       const { person: personToUpdate } = action.payload;
-      const personUpdated = state.filter((person) => person.id === personToUpdate.id);
+      const personUpdated = state.persons.filter((person) => person.id === personToUpdate.id);
 
       return [...state, personUpdated];
     case personActionTypes.deletePerson:
-      const { person } = action.payload.id;
-
-      return state.filter((p) => p.id !== person.id);
+      return state.persons.filter((person) => person.id !== action.payload.id);
     default:
       return state;
   }

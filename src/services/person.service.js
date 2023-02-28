@@ -1,7 +1,11 @@
+import { personActionTypes } from '../actions/actionTypes';
 import { get } from './agent';
 
 export const getPerson = async (dispatch) => {
-  const persons = await get('/person');
+  const data = await get('/person');
 
-  console.log(persons);
+  dispatch({
+    type: personActionTypes.addPerson,
+    payload: data,
+  });
 };

@@ -1,13 +1,19 @@
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { getPerson } from '../../services/person.service';
 import PageTitle from '../form/PageTitle';
 import Pagination from '../form/Pagination';
 import Search from '../form/Search';
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const persons = useSelector((state) => state.persons);
+
+  console.log(persons);
+
   useEffect(() => {
-    getPerson();
-  }, []);
+    getPerson(dispatch);
+  }, [dispatch]);
 
   return (
     <>
@@ -28,24 +34,21 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Esdras Dzul</td>
-                <td>Prolongacion Gonzalez Gallo, 1872, condominio datil</td>
-                <td>45602</td>
-                <td>xdzul@hotmail.com</td>
-                <td>3315181680</td>
-              </tr>
-              <tr>
-                <td>Erika salinas</td>
-                <td>Juarez Pedroza, Colonia San Martin 254</td>
-                <td>8501</td>
-                <td>tery@hotmail.com</td>
-                <td>9716548325</td>
-              </tr>
+              {persons?.map((person) => (
+                <tr key={person.id}>
+                  <td>
+                    {person.name} {persons.lastName}
+                  </td>
+                  <td>{person.address.address}</td>
+                  <td>{person.address.zipCode}</td>
+                  <td>{person.address.email}</td>
+                  <td>{person.address.phoneNumber}</td>
+                </tr>
+              ))}
             </tbody>
             <tfoot>
               <tr>
-                <td colspan={5}>
+                <td colSpan={5}>
                   <Pagination />
                 </td>
               </tr>
