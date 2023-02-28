@@ -1,6 +1,13 @@
 import { personActionTypes } from '../actions/actionTypes';
 
-const personReducer = (state = {}, action) => {
+const initialState = {
+  loading: false,
+  totalPages: 0,
+  currentPage: 0,
+  persons: [],
+};
+
+const personReducer = (state = initialState, action) => {
   switch (action.type) {
     case personActionTypes.addPerson:
       return {
