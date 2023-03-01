@@ -20,3 +20,8 @@
   border-radius: 5px;
   margin-top: 60px;
 }
+
+.pagination-text {
+  color: #212529;
+  font-weight: bold;
+}

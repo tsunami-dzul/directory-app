@@ -1,12 +1,16 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
-  const [currentTab, setCurrentTab] = useState('dashboard');
+  const location = useLocation();
+  const [currentPath, setCurrentPath] = useState('');
+  const DASHBOARD_PATH = '/dashboard';
+  const PERSON_PATH = '/person';
+  const ACTIVE_CLASS_NAME = 'active';
 
-  const handleOnclick = (activeTab) => {
-    setCurrentTab(activeTab);
-  };
+  useEffect(() => {
+    setCurrentPath(location.pathname);
+  },[location]);
 
   return (
     <nav
@@ -40,19 +44,17 @@ const Header = () => {
           <ul className='navbar-nav'>
             <li className='nav-item'>
               <Link
-                onClick={() => handleOnclick('dashboard')}
-                className={`nav-link ${currentTab === 'dashboard' ? 'active' : ''}`}
+                className={`nav-link ${currentPath === DASHBOARD_PATH ? ACTIVE_CLASS_NAME : ''}`}
                 aria-current='page'
-                to='/dashboard'
+                to={DASHBOARD_PATH}
               >
                 Dashboard
               </Link>
             </li>
             <li className='nav-item'>
               <Link
-                onClick={() => handleOnclick('person')}
-                className={`nav-link ${currentTab === 'person' ? 'active' : ''}`}
-                to='person'
+                className={`nav-link ${currentPath === PERSON_PATH ? ACTIVE_CLASS_NAME : ''}`}
+                to={PERSON_PATH}
               >
                 Person
               </Link>

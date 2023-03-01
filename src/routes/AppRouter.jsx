@@ -3,7 +3,7 @@ import PageNotFound from '../components/404/PageNotFound';
 import Dashboard from '../components/dashboard/Dashboard';
 import Home from '../components/home/Home';
 import Content from '../components/layout/Content';
-import Person from '../components/person/Person';
+import People from '../components/people/People';
 
 const AppRouter = () => {
   return (
@@ -22,7 +22,7 @@ const AppRouter = () => {
         />
         <Route
           path='person'
-          element={<Person />}
+          element={<People />}
         />
       </Route>
 

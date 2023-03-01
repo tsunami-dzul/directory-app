@@ -1,25 +1,54 @@
-import { personActionTypes } from '../actions/actionTypes';
+import { addPersonActionTypes, loadPeopleActionTypes } from '../actions/actionTypes';
 
 const initialState = {
   loading: false,
   totalPages: 0,
   currentPage: 0,
-  persons: [],
+  error: null,
+  people: [],
 };
 
 const personReducer = (state = initialState, action) => {
   switch (action.type) {
-    case personActionTypes.addPerson:
+    case loadPeopleActionTypes.loadPeopleStarted: {
       return {
+        ...state,
+        error: null,
+        loading: true,
+      };
+    }
+    case loadPeopleActionTypes.loadPeopleSuccess:
+      return {
+        ...state,
+        loading: false,
+        error: null,
         ...action.payload,
       };
-    case personActionTypes.updatePerson:
-      const { person: personToUpdate } = action.payload;
-      const personUpdated = state.persons.filter((person) => person.id === personToUpdate.id);
-
-      return [...state, personUpdated];
-    case personActionTypes.deletePerson:
-      return state.persons.filter((person) => person.id !== action.payload.id);
+    case loadPeopleActionTypes.loadPeopleFailure:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case addPersonActionTypes.addPersonStarted:
+      return {
+        ...state,
+        error: null,
+        loading: true,
+      };
+    case addPersonActionTypes.addPersonSuccess:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        people: [...state.people, ...action.payload],
+      };
+    case addPersonActionTypes.addPersonFailure:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      }
     default:
       return state;
   }

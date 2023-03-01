@@ -1,10 +1,18 @@
 const Input = (props) => {
-  const { type, className, label, placeholder } = props;
+  const { value, name, onChange, type, className, label, placeholder } = props;
 
   return (
     <div className='mb-2'>
-      {label ? <label className='form-label'>{label}</label> : ''}
-      <input className={className} type={type} placeholder={placeholder} />
+      {label ? <label htmlFor={name} className='form-label'>{label}</label> : ''}
+      <input
+        id={name}
+        onChange={onChange}
+        name={name}
+        value={value}
+        className={className}
+        type={type}
+        placeholder={placeholder}
+      />
     </div>
   );
 };
