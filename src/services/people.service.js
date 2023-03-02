@@ -1,4 +1,4 @@
-import { loadPeopleFailure, loadPeopleStarted, loadPeopleSuccess } from '../actions/personActions';
+import { loadPeopleFailure, loadPeopleStarted, loadPeopleSuccess, updatePersonStarted, updatePersonSuccess } from '../actions/personActions';
 import { get } from './agent';
 
 export const getPeople = () => {  
@@ -15,9 +15,14 @@ export const getPeople = () => {
   }
 };
 
-export const savePerson = () => {
+export const updatePerson = (id, payload) => {
   return async (dispatch) => {
     try {
+      dispatch(updatePersonStarted());
+
+      const data = await 
+
+      dispatch(updatePersonSuccess(data));
 
     } catch(err) {
       dispatch(loadPeopleFailure(err));

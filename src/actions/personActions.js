@@ -1,4 +1,4 @@
-import { addPersonActionTypes, loadPeopleActionTypes } from './actionTypes';
+import { addPersonActionTypes, loadPeopleActionTypes, updatePersonActionTypes } from './actionTypes';
 
 export const loadPeopleStarted = () => ({
   type: loadPeopleActionTypes.loadPeopleStarted,
@@ -25,5 +25,19 @@ export const addPersonSuccess = (data) => ({
 
 export const addPersonFailure = (error) => ({
   type: addPersonActionTypes.addPersonFailure,
+  payload: error,
+});
+
+export const updatePersonStarted = () => ({
+  type: updatePersonActionTypes.updatePersonSuccess,
+});
+
+export const updatePersonSuccess = (data) => ({
+  type: updatePersonActionTypes.updatePersonSuccess,
+  payload: data,
+});
+
+export const updatePersonFailure = (error) => ({
+  type: updatePersonActionTypes.updatePersonFailure,
   payload: error,
 });
