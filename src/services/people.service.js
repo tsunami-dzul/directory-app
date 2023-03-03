@@ -1,31 +1,56 @@
-import { loadPeopleFailure, loadPeopleStarted, loadPeopleSuccess, updatePersonStarted, updatePersonSuccess } from '../actions/personActions';
-import { get } from './agent';
+import { fetchPeopleStarted, fetchPeopleSuccess, fetchPeopleFailure } from '../actions/actionTypes';
+import { get, remove, update } from './agent';
 
-export const getPeople = () => {  
+export const getPeople = () => {
   return async (dispatch) => {
     try {
-      dispatch(loadPeopleStarted());
-      
+      dispatch(fetchPeopleStarted());
+
       const data = await get('/people');
 
-      dispatch(loadPeopleSuccess(data));
-    } catch(err) {
-      dispatch(loadPeopleFailure(err));
+      dispatch(fetchPeopleSuccess(data));
+    } catch (err) {
+      dispatch(fetchPeopleFailure(err));
     }
-  }
+  };
 };
 
 export const updatePerson = (id, payload) => {
   return async (dispatch) => {
     try {
-      dispatch(updatePersonStarted());
+      dispatch(fetchPeopleStarted());
 
-      const data = await 
+      const data = await update(`/people/${id}`, payload);
 
-      dispatch(updatePersonSuccess(data));
+      if (data.ok) {
+        dispatch(getPeople());
+      } else {
+        dispatch(fetchPeopleFailure(data.message));
+      }
 
-    } catch(err) {
-      dispatch(loadPeopleFailure(err));
+      dispatch(fetchPeopleSuccess(data));
+    } catch (err) {
+      dispatch(fetchPeopleFailure(err));
     }
-  }
-}
+  };
+};
+
+export const deletePerson = (id) => {
+  return async (dispatch) => {
+    try {
+      dispatch(fetchPeopleStarted());
+
+      const data = await remove(`/people/${id}`);
+
+      if (data.ok) {
+        dispatch(getPeople());
+      } else {
+        dispatch(fetchPeopleFailure(data.message));
+      }
+
+      dispatch(fetchPeopleSuccess(data));
+    } catch (err) {
+      dispatch(fetchPeopleFailure(err));
+    }
+  };
+};

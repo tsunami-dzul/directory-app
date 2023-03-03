@@ -1,21 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Input from '../form/Input';
 import Modal from '../form/Modal';
 import Form from '../form/Form';
 import Button from '../form/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { updatePerson } from '../../services/people.service';
 
 const AddEditPerson = (props) => {
   const { id, selectedPerson } = props;
-  let initialFormValues = {
-    name: '',
-    lastName: '',
-    address: '',
-    email: '',
-    phoneNumber: '',
-    zipCode: '',
-  };
-
-  const [formValue, setFormValue] = useState(initialFormValues);
+  const dispatch = useDispatch();
+  const [saveAction, setSaveAction] = useState(false);
+  const { loading, error } = useSelector((state) => state);
+  const initialFormState = useMemo(() => {
+    return {
+      name: '',
+      lastName: '',
+      address: '',
+      email: '',
+      phoneNumber: '',
+      zipCode: '',
+    };
+  }, []);
+  const [formValue, setFormValue] = useState(initialFormState);
 
   useEffect(() => {
     setFormValue({
@@ -28,9 +34,9 @@ const AddEditPerson = (props) => {
     });
 
     return () => {
-      setFormValue(initialFormValues);
+      setFormValue(initialFormState);
     };
-  }, [selectedPerson]);
+  }, [selectedPerson, initialFormState]);
 
   const handleOnChange = (event) => {
     const name = event.target.name;
@@ -45,12 +51,17 @@ const AddEditPerson = (props) => {
   const onHandleSubmit = (event) => {
     event.preventDefault();
 
-    console.log('submit form');
+    setSaveAction(true);
+
+    dispatch(updatePerson(selectedPerson.id, formValue));
+
+    document.getElementById('closeModalButton').click();
   };
 
   const modalFooter = (
     <div className='modal-footer'>
       <Button
+        id='closeModalButton'
         type='button'
         className='btn btn-secondary'
         data-bs-dismiss='modal'
@@ -131,13 +142,33 @@ const AddEditPerson = (props) => {
     </Form>
   );
 
+  const modalBodyLoading = (
+    <div className='col-md-2 mx-auto'>
+      <div
+        className='spinner-border'
+        role='status'
+      >
+        <span className='visually-hidden'>Loading...</span>
+      </div>
+    </div>
+  );
+
+  const modalBodyError = (
+    <div
+      className='alert alert-danger'
+      role='alert'
+    >
+      Sorry, something went wrong, please contact the administrator.
+    </div>
+  );
+
   return (
     <Modal
       id={id}
       title='Add new person'
       btnSaveName='Save'
       btnSaveType='submit'
-      modalBody={modalBody}
+      modalBody={loading && saveAction ? modalBodyLoading : error ? modalBodyError : modalBody}
     />
   );
 };

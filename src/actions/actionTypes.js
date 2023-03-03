@@ -1,23 +1,17 @@
-export const loadPeopleActionTypes = {
-  loadPeopleStarted: 'LOAD_PERSON_STARTED',
-  loadPeopleSuccess: 'LOAD_PERSON_SUCCESS',
-  loadPeopleFailure: 'LOAD_PERSON_FAILURE',  
-};
+export const FETC_PEOPLE_STARTED = 'FETCH_PEOPLE_STARTED';
+export const FETCH_PEOPLE_SUCCESS = 'FETCH_PEOPLE_SUCCESS';
+export const FETCH_PEOPLE_FAIL = 'FETCH_PEOPLE_FAIL';
 
-export const addPersonActionTypes = {
-  addPersonStarted: 'ADD_PERSON_STARTED',
-  addPersonSuccess: 'ADD_PERSON_SUCCESS',
-  addPersonFailure: 'ADD_PERSON_FAILURE',  
-};
+export const fetchPeopleStarted = () => ({
+  type: FETC_PEOPLE_STARTED,
+});
 
-export const updatePersonActionTypes = {
-  updatePersonStarted: 'UPDATE_PERSON_STARTED',
-  updatePersonSuccess: 'UPDATE_PERSON_SUCCESS',
-  updatePersonFailure: 'UPDATE_PERSON_FAILURE',  
-}
+export const fetchPeopleSuccess = (data) => ({
+  type: FETCH_PEOPLE_SUCCESS,
+  payload: data,
+});
 
-export const deletePersonActionTypes = {
-  deletePersonStarted: 'DELETE_PERSON_STARTED',
-  deletePersonSuccess: 'DELETE_PERSON_SUCESS',
-  deletePersonFaiure: 'DELETE_PERSON_FAILURE',
-}
+export const fetchPeopleFailure = (error) => ({
+  type: FETCH_PEOPLE_FAIL,
+  payload: error,
+});

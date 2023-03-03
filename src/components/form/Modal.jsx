@@ -1,7 +1,7 @@
 import Button from './Button';
 
 const Modal = (props) => {
-  const { id, title, modalBody, modalFooter, btnCloseName, btnSaveName, btnSaveType } = props;
+  const { id, title, modalBody, modalFooter } = props;
 
   return (
     <div
@@ -21,21 +21,7 @@ const Modal = (props) => {
             />
           </div>
           <div className='modal-body'>{modalBody ?? 'No body was provided'}</div>
-          {modalFooter ? (
-            <div className='modal-footer'>
-              <Button
-                type='button'
-                className='btn btn-secondary'
-                data-bs-dismiss='modal'
-                text={btnCloseName ?? 'Close'}
-              />
-              <Button
-                type={btnSaveType ?? 'button'}
-                className='btn btn-dark'
-                text={btnSaveName ?? 'Save'}
-              />
-            </div>
-          ): ''}
+          {modalFooter ?? ''}
         </div>
       </div>
     </div>

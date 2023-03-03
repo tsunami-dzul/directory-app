@@ -15,15 +15,15 @@ const People = () => {
 
   useEffect(() => {
     dispatch(getPeople());
-  }, []);
+  }, [dispatch]);
 
-  const onSelectedPersonHandle = (person) => {    
+  const onSelectedPersonHandle = (person) => {
     setSelectedPerson(person);
-  }
+  };
 
   const handleAddNewPerson = () => {
     setSelectedPerson(null);
-  }
+  };
 
   return (
     <>
@@ -114,8 +114,14 @@ const People = () => {
         </div>
       </div>
 
-      <AddEditPerson id='add-person' selectedPerson={selectedPerson} />
-      <DeletePerson id='delete-person' />
+      <AddEditPerson
+        id='add-person'
+        selectedPerson={selectedPerson}
+      />
+      <DeletePerson
+        id='delete-person'
+        selectedPerson={selectedPerson}
+      />
     </>
   );
 };

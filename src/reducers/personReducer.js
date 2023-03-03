@@ -1,4 +1,4 @@
-import { addPersonActionTypes, loadPeopleActionTypes, updatePersonActionTypes } from '../actions/actionTypes';
+import { FETC_PEOPLE_STARTED, FETCH_PEOPLE_SUCCESS, FETCH_PEOPLE_FAIL } from '../actions/actionTypes';
 
 const initialState = {
   loading: false,
@@ -8,64 +8,28 @@ const initialState = {
   people: [],
 };
 
-const startedAction = (state) => {
-  return {
-    ...state,
-    error: null,
-    loading: true,
-  };
-};
-
-const succesAction = (state, action) => {
-  return {
-    ...state,
-    loading: false,
-    error: null,
-    ...action.payload,
-  };
-};
-
-const failureAction = (state, action) => {
-  return {
-    ...state,
-    loading: false,
-    error: action.payload,
-  };
-};
-
 const personReducer = (state = initialState, action) => {
   switch (action.type) {
-    case loadPeopleActionTypes.loadPeopleStarted: {
-      return startedAction(state);
+    case FETC_PEOPLE_STARTED: {
+      return {
+        ...state,
+        error: null,
+        loading: true,
+      };
     }
-    case loadPeopleActionTypes.loadPeopleSuccess:
-      return succesAction(state, action);
-    case loadPeopleActionTypes.loadPeopleFailure:
-      return failureAction(state, action);
-    case addPersonActionTypes.addPersonStarted:
-      return startedAction(state);
-    case addPersonActionTypes.addPersonSuccess:
+    case FETCH_PEOPLE_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
-        people: [...state.people, ...action.payload],
+        ...action.payload,
       };
-    case addPersonActionTypes.addPersonFailure:
-      return failureAction(state, action);
-    case updatePersonActionTypes.updatePersonSuccess:
-      return succesAction(state);
-    case updatePersonActionTypes.updatePersonSuccess:
-      const people = state.people.filter((person) => person.id !== action.payload.id);
-
+    case FETCH_PEOPLE_FAIL:
       return {
         ...state,
         loading: false,
-        error: null,
-        people: [...people, ...action.payload],
+        error: action.payload,
       };
-    case updatePersonActionTypes.updatePersonFailure:
-      return failureAction(state, action);
     default:
       return state;
   }
